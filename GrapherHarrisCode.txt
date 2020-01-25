@@ -1,0 +1,20 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.colors as color
+%matplotlib inline
+df = pd.read_csv("ACS20175Harris_BG_v01 - ACS20175Harris_BG_v01.csv")
+df.head()
+df.fillna(0, inplace=True)
+def scatterplotter (x,y,z):
+    fig = plt.figure(figsize=(10,8))
+    plt.scatter(df[x].values.tolist(), df[y].values.tolist(), c = df[z].values.tolist(), s =3, norm=color.SymLogNorm(linthresh = 0.03))
+    plt.ylim(29.5,30.2)
+    plt.xlim(-95.9,-94.9)
+    plt.xlabel(y)
+    plt.ylabel(x)
+    plt.title("Percent Non-Hispanic Other Population")
+    plt.colorbar()
+    plt.show()
+    fig.savefig("pctNHoth.png")
+scatterplotter("Longitude", "Latitude", "pctNHoth")
